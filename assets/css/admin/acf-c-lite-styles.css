@@ -1,0 +1,478 @@
+/*
+This CSS file contains the CSS needed for the core ACF Companion Lite experience;
+it's setting the basic styles that will be used for the ACF and
+Gutenberg settings panels.
+
+@package ACF Companion Lite
+@author Going Bold
+@since 1.0.0
+@version 1.0.0
+
+(C) 2019 Going Bold, Ltd.
+*/
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+1 Base Styles (incl. stuff that acts as wrappers and resets)
+	1.1 Links (incl. buttons)
+2 Fields
+	2.1 Color Picker
+	2.2 Link
+	2.3 Image
+3 Dashicons
+4 Misc
+	4.1 Intro (intro section of a block, typically containing title and blurb about the block)
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+1 Base Styles
+--------------------------------------------------------------*/
+/*
+ * Makes sure divs clip properly when content (mainly text)
+ * is required to be contained within the div dimensions.
+ */
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+/**
+* Has a white background by default, which plays up with negative
+* z-index stuff in the editor (mainly WYSIWYG).
+*/
+body.block-editor-page {
+	background: none;
+}
+
+/* A border-bottom is added in Gutenberg, this removes it. */
+.edit-post-meta-boxes-area .postbox > .inside {
+	border-bottom: none;
+}
+
+/**
+* Adds a min-height to the main Gutenberg editor as otherwise things
+* are a bit cramped when there is no (or very litttle)
+* content.
+*/
+.editor-block-list__layout {
+	min-height: 450px;
+}
+
+/**
+ * the above class (editor-block-list__layout) is also found in the gutenberg
+ * columns so this resets the min-height for columns
+ */
+.editor-inner-blocks .editor-block-list__layout {
+	min-height: auto;
+}
+
+/*
+* IE 11 (and 10?) has overlay sidebars, which means the sidebar for the settings panel is under
+* the main page sidebar, this changes the behavior so sidebars sit to the side (expected behavior).
+*/
+html.wp-toolbar {
+	-ms-overflow-style: scrollbar;
+}
+
+.editor-block-list__block .acf-block-fields.acf-fields {
+	max-width: 400px;
+	margin: auto;
+	border: 0;
+	padding: 10px 30px 32px;
+	background: none;
+}
+
+.editor-block-list__block .acf-fields,
+/* Not really a wrapper but simply replicates the font-size of the wrapper */
+.editor-block-list__block .acf-block-fields.acf-fields p {
+	font-size: 13px;
+}
+
+/* Sets default font to system (same as rest of Gutenberg settings) */
+body .acf-block-body.acf-block-fields,
+body .acf-block-body.acf-block-fields h2,
+body .acf-block-body.acf-block-fields h3 {
+	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+	text-transform: none;
+}
+
+.editor-block-list__block[data-align="wide"] .acf-block-fields.acf-fields,
+.editor-block-list__block[data-align="full"] .acf-block-fields.acf-fields {
+	border-color: #fff;
+}
+
+[data-type*=acf] .acf-block-body.acf-block-fields {
+	background: #f3f3f4;
+}
+
+/**
+ * since ACF 5.8.0 beta 4 the border width is removed (I have no idea why...)
+ */
+ .acf-block-component .acf-block-fields div.acf-field {
+	border-width: 1px !important;
+}
+
+/**
+ * since ACF 5.8.0 beta 4 the class '.acf-input-wrap' has a reduced height (I have no idea why...)
+ */
+.acf-input-wrap {
+	height: auto;
+	min-height: 35px;
+}
+
+/**
+* Increases z-index of the tabs that show at the top of the Gutenberg sidebar.
+* This is done as there's quite a few settings that have a greater z-index
+* which when scrolling the sidebar they overlap the tabs.
+*/
+.components-panel__header.edit-post-sidebar-header {
+	z-index: 999;
+}
+
+/*--------------------------------------------------------------
+1.1 Links (incl. Buttons)
+--------------------------------------------------------------*/
+/**
+* Makes sure the links that look like buttons inherit the default
+* WP styling (basically overwrites theme styles).
+*/
+.block-editor .editor-block-list__block-edit .acf-block-fields a.button {
+	color: inherit;
+}
+
+/**
+* The primary button color is white, not black/dark grey like
+* some of the other ui elements that perform button
+* functionality (like the media upload), hence this needing
+* a specific declaration here.
+*/
+.block-editor .editor-block-list__block-edit .acf-block-fields a.button-primary {
+	color: #ffffff;
+}
+
+/*--------------------------------------------------------------
+2 Fields
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+2.1 Color Picker
+--------------------------------------------------------------*/
+.acfc-color-picker .wp-picker-container .wp-color-result.button,
+.acfc-color-picker .wp-picker-container .wp-picker-input-wrap {
+	margin-top: 5px;
+}
+
+.acfc-color-picker .wp-picker-holder {
+	position: relative;
+	max-width: 260px;
+	background: #fff;
+	padding: 10px 15px;
+	border-radius: 4px;
+	box-shadow: 0 3px 30px rgba(25,30,35,.1);
+	border: 1px solid #e2e4e7;
+	transform: rotate(1deg);
+}
+
+.acfc-color-picker .wp-picker-holder:before,
+.acfc-color-picker .wp-picker-holder:after {
+	content: "";
+	position: absolute;
+	height: 0;
+	width: 0;
+	line-height: 0;
+	border: 8px solid #e2e4e7;
+	border-top: none;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	margin-left: -10px;
+	left: 30px;
+}
+
+.acfc-color-picker .wp-picker-holder:before {
+	top: -8px;
+}
+
+.acfc-color-picker .wp-picker-holder:after {
+	top: -6px;
+	border: 8px solid #fff;
+	border-top: none;
+	border-left-color: transparent;
+	border-right-color: transparent;
+}
+
+.acfc-color-picker .hidden + .wp-picker-holder {
+	padding: 0;
+	border: none;
+}
+
+.acfc-color-picker .hidden + .wp-picker-holder:before,
+.acfc-color-picker .hidden + .wp-picker-holder:after {
+	content: none;
+}
+
+.acfc-color-picker .iris-picker {
+	background: none;
+	border: 0;
+	margin: 0;
+	width: 100% !important;
+	height: 200px !important;
+}
+
+.acfc-color-picker .iris-border .iris-picker-inner {
+	left: 0;
+	width: 100%;
+}
+
+.acfc-color-picker .iris-picker * {
+	box-shadow: none !important;
+}
+
+.acfc-color-picker .iris-picker .iris-square {
+	border: 1px solid #ccc;
+	width: 80% !important;
+}
+
+.acfc-color-picker .iris-picker .iris-strip {
+	border: 1px solid #ccc;
+	height: 212px !important;
+	width: 13.5% !important;
+	position: absolute;
+	right: 0;
+}
+
+.acfc-color-picker .iris-picker .iris-strip .ui-slider-handle {
+	left: -3px;
+}
+
+.acfc-color-picker .iris-border .iris-palette-container {
+	bottom: 0;
+	width: 80%;
+	left: 0;
+}
+
+.acfc-color-picker .iris-picker .iris-palette {
+	box-shadow: inset 0 0 2px 0 #9c9c9c !important;
+	margin-left: 1.5% !important;
+	width: 11.18% !important;
+}
+
+.acfc-color-picker .iris-picker .iris-palette:first-child {
+	margin-left: 0 !important;
+}
+
+/*--------------------------------------------------------------
+2.2 Link
+--------------------------------------------------------------*/
+.acfc-link .link-wrap {
+	line-height: 1.5em;
+	position: relative;
+	min-width: 40%;
+	padding-right: 15px;
+}
+
+.acfc-link .link-title {
+	padding: 5px 10px;
+	display: block;
+	font-style: italic;
+}
+
+.acfc-link .link-url {
+	display: block;
+	padding: 0 10px 5px;
+}
+
+.acfc-link .acf-icon.-link-ext {
+	margin-left: 6px;
+}
+
+.acfc-link .acf-icon.-pencil,
+.acfc-link .acf-icon.-cancel {
+	border: 1px solid #ccc;
+	background: #fff;
+	position: absolute;
+}
+
+.acfc-link .acf-icon.-pencil {
+	line-height: 1.944em;
+	bottom: auto;
+	right: -14px;
+	top: 7px;
+	font-size: .95em;
+	padding-left: 1px;
+	margin-left: 10px;
+}
+
+.acfc-link .acf-icon.-pencil:hover,
+.acfc-link .acf-icon.-pencil:active,
+.acfc-link .acf-icon.-pencil:focus {
+	background: #2a9bd9;
+}
+
+.acfc-link .acf-icon.-cancel {
+	right: -10px;
+	top: 35px;
+	line-height: 1.1em;
+	width: 20px;
+	height: 20px;
+}
+
+.acfc-link .acf-icon.-cancel:hover,
+.acfc-link .acf-icon.-cancel:active,
+.acfc-link .acf-icon.-cancel:focus {
+	background: #f55e4f;
+}
+
+/*--------------------------------------------------------------
+2.3 Image
+--------------------------------------------------------------*/
+/* Styling for the image uploader (it's basically a wrapper for the img */
+.acfc-image .acf-image-uploader {
+	display: inline-block;
+	padding: 20px;
+	margin-top: 7px;
+	border: 1px dashed #ccc;
+	border-radius: 4px;
+	transform: rotate(-1deg);
+}
+
+/* Styling for the "no image selected" text and "add image" button */
+.acfc-image .acf-image-uploader p {
+	text-transform: uppercase;
+	text-align: center;
+	margin: 0;
+	font-size: 11px !important;
+}
+
+/* Styling for the "add image" button */
+.acfc-image .acf-image-uploader .acf-button {
+	margin: 5px;
+	font-style: normal;
+	text-transform: capitalize;
+}
+
+/* Styling for the image */
+.acfc-image .acf-image-uploader img  {
+	background: none !important;
+	transform: rotate(-2deg);
+	border-radius: 4px;
+	padding: 15px;
+}
+
+/*--------------------------------------------------------------
+3 Dashicons
+--------------------------------------------------------------*/
+/* Hides text (so only icon is visible) */
+.acf-fields .dashicons {
+	overflow: hidden;
+}
+
+/**
+ * Adds a teeny weeny margin for dashicons in the accordion title, just
+ * to add a little separation between a dashicon and text
+ */
+.acf-fields .acf-accordion-title .dashicons {
+	margin-right: 2px;
+}
+
+.acfc-h2 .dashicons,
+.acfc-h3 .dashicons {
+	line-height: 1.2em;
+}
+
+/*--------------------------------------------------------------
+4 Misc
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+4.1 Intro
+--------------------------------------------------------------*/
+.acfc-settings-intro-wrap {
+	max-width: 400px;
+	margin: auto;
+	padding: 10px 30px 1em;
+	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+}
+
+/**
+* since 5.8.0 beta 4, is-edit class removed from acf fields that aren't displayed
+* in the sidebar, hence having to fiddle about with :after and z-index
+*/
+.acf-block-body:after,
+.acf-block-preview:after,
+.acfc-settings-intro-wrap:after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #f3f3f4;
+	z-index: -99;
+}
+
+.acf-block-body:after {
+	z-index: -100;
+}
+
+.acfc-settings-intro-wrap:after {
+	z-index: -98;
+}
+
+.acf-block-preview:after {
+	background: #fff;
+}
+
+/**
+* The heading the inherits the styles from the fonts settings, the
+* font-family and text-transform declarations make sure the
+* default font is used.
+*/
+.acfc-settings-intro h2,
+.acfc-settings-intro-wrap h2 {
+	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif !important;
+	text-transform: initial !important;
+	font-size: 16px !important;
+	margin: 15px 0 5px 0;
+	font-weight: 700;
+	line-height: 1.8em;
+}
+
+/* Overwrites h2:before declarations (e.g. Twenty Nineteen Theme) */
+.acfc-settings-intro h2:before,
+.acfc-settings-intro-wrap h2:before {
+	content: none !important;
+}
+
+/* intro wrapper */
+.acfc-settings-intro {
+	padding: 13px 0 !important;
+	text-align: center;
+	border: 0 !important;
+}
+
+/* Don't display the intro in the sidebar as it's not needed */
+.edit-post-settings-sidebar__panel-block .acfc-settings-intro {
+	display: none;
+}
+
+.acfc-settings-intro h2 > span {
+	font-size: 10px;
+	padding: 0;
+	color: #5a5a5a;
+	display: block;
+	line-height: 1em;
+	font-weight: normal;
+}
+
+.acfc-settings-intro > p {
+	font-size: 13px !important;
+	margin: 0 0 15px !important;
+}
+
+.acfc-settings-intro__instructions {
+	display: none;
+	font-style: italic;
+}
+
+.is-selected .acfc-settings-intro__instructions {
+	display: block;
+}
